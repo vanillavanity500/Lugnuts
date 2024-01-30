@@ -1,0 +1,81 @@
+/* Style for the entire page */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f5dec4;
+}
+
+/* Style for the header */
+h1 {
+    text-align: center;
+    background-color: #333;
+    color: #fff;
+    padding: 10px;
+}
+
+/* Style for the product details container */
+.product-container {
+    max-width: 400px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #f5dec4;
+    border: 1px solid #ccc;
+}
+
+/* Style for the product image */
+img {
+    display: block;
+    margin: 0 auto;
+    max-width: 80%; /* Reduce image size to fit the container */
+    height: auto;
+}
+
+/* Style for the product name */
+h2 {
+    text-align: center;
+    color: #333;
+}
+
+/* Style for the product price */
+p {
+    text-align: center;
+    color: #333;
+}
+
+/* Style for the Buy Now button */
+form {
+    text-align: center;
+}
+
+input[type="submit"] {
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    font-weight: bold;
+    border-radius: 5px;
+}
+
+input[type="submit"]:hover {
+    background-color: #0056b3;
+}
+a.buy-button {
+    display: inline-block; /* Make the link a block element */
+    display: block; /* Make the link a block element */
+    text-align: center; /* Center the button text */
+    text-decoration: none;
+    background-color: orange;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    font-weight: bold;
+    border-radius: 5px;
+    margin: 0px auto;
+}
+
+a.buy-button:hover {
+    background-color: #0056b3;
+}

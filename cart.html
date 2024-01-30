@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">    
+
+    <style>
+        body {
+            background-color: #f5dec4;
+            color: #231915;
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+        }
+        .header{
+    position: sticky;
+    top: 0;
+    height: 14vh;
+    display: flex; 
+    justify-content: space-around;
+    align-items: center;
+    background: #bd8d54;
+}
+.header .usercart{
+    display: flex;
+    
+    gap: 40px;    
+}
+.header .usercart .usersec{
+    display: flex;
+    align-items: center;
+}
+.header .usercart .usersec:hover{
+    color: white;
+}
+.header .usercart .cartsec{
+    display: flex;
+    align-items: center;
+}
+
+.header .searchbar{
+    display: flex;
+    align-items: center;
+    /* gap: 7px; */
+}
+.header .searchbar input{
+    padding: 6.5px 70px;
+    border: none;
+    border-radius: 4px 0px 0px 4px;
+    cursor: pointer;
+}
+i{
+    cursor: pointer;
+    font-size: 20px;
+    border: 1px solid rgba(0, 0, 0, 0.434);
+    padding: 4.5px 10px;
+    border-radius: 0px 4px 4px 0px;
+    color: white;
+}
+.usersignup a button:hover{
+    color: white;
+    
+}
+
+.footer{
+    background: #bd8d54;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+    padding-top: 10px;
+}
+.footer .footercontent a{
+    color: white;
+    text-decoration: none;
+    padding-left: 30px;
+    font-weight: 700;
+
+}
+.copy{
+    /* background-color: #231915; */
+    /* color: white; */
+}
+.copy p{
+    text-align: center;
+}
+        header {
+            background-color: #bd8d54;
+            padding: 20px;
+            text-align: center;
+        }
+        a {
+            color: #231915;
+            text-decoration: none;
+        }
+        header img {
+            width: 100px;
+            height: 50px;
+        }
+        main {
+            text-align: center;
+            padding: 20px;
+        }
+        .cart-item {
+            border: 1px solid #bd8d54;
+            border-radius: 5px;
+            padding: 10px;
+            margin: 10px;
+            display: flex;
+            align-items: center;
+        }
+        .cart-item img {
+            max-width: 80px;
+            max-height: 80px;
+            margin-right: 10px;
+        }
+        .checkout-buttons {
+            display: flex;
+            justify-content: center;
+            margin-top: 20px;
+        }
+        .checkout-buttons button {
+            margin: 10px;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .checkout-buttons #checkout-button {
+            background-color: #bd8d54;
+            color: #231915;
+        }
+        .checkout-buttons #cancel-button {
+            background-color: #f94c4c;
+            color: #fff;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <div class="logosec">
+            <a href="index.html"><img src="images/logo.png" style="width:140px;height:60px;"></a>
+
+        </div>
+        <div class="searchbar">
+           <input type="text" name="search" placeholder="What are you looking for?" ><i class="fa-solid fa-magnifying-glass"></i>
+
+        </div>
+        <div class="usercart">
+
+            <div class="cartsec">
+                <a href="cart.html"><img src="images/cart.png" style="width:25px;height:25px; padding-right: 4px;"></a> <span style="color: black;font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif ;cursor: pointer;">VIEW CART</span>
+
+            </div>
+
+            <div class="usersec">
+                <a href="account.html"><img src="images/account.png" style="width:25px;height:25px;"></a> <span style="font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif ;cursor: pointer;">LOGIN</span>
+
+            </div>
+            <div class="usersignup">
+                <a href="account.html"><button style="background: #bd8d54;border: 2px solid burlywood;padding: 5px 10px;font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;cursor: pointer;font-weight: bold;">SIGN UP</button></a>
+            </div>
+          
+        
+        </div>    
+        </div>
+    
+    <main>
+        <h2>Shopping Cart</h2>
+        <div class="cart-item">
+            <img src="images/hammer.jpg" alt="Product 1">
+            <p>Product 1</p>
+            <p>$19.99</p>
+        </div>
+        <div class="cart-item">
+            <img src="images/chainsaw.jpg" alt="Product 2">
+            <p>Product 2</p>
+            <p>$24.99</p>
+        </div>
+        <div class="cart-item">
+            <img src="images/grasscutter.jpg" alt="Product 3">
+            <p>Product 3</p>
+            <p>$14.99</p>
+        </div>
+        
+        <div class="checkout-buttons">
+            <button id="checkout-button">Checkout</button>
+            <button id="cancel-button">Cancel</button>
+        </div>
+    </main>
+    <div class="footer">
+        <div class="icon">
+            <i class="fa-brands fa-facebook"></i>
+            <i class="fa-brands fa-whatsapp"></i>
+            <i class="fa-brands fa-instagram"></i>
+            <i class="fa-brands fa-twitter"></i>
+            <i class="fa-solid fa-envelope"></i>
+        </div>
+        <div class="footercontent">
+            <a href="">CONTACT US</a>
+            <a href="">ABOUT US</a>
+            <a href="">FAQ</a>
+            <a href="">ANY QUERY?</a>
+        </div>
+        
+        
+        
+    </div>
+    <div class="copy">
+        <p>Copyright &copy; Team Flash</p>
+    </div>
+</body>
+</html>
+
