@@ -379,7 +379,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         }
 
         function removeItemFromCart(productId) {
-            // Send an AJAX request to remove the item from the server
+            // Send an AJAX request to remove the item from the server, unfortunately still isn't working
             var xhr = new XMLHttpRequest();
             xhr.open('POST', 'cart.php', true);
             xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
