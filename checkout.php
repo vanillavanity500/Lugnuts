@@ -132,116 +132,117 @@
 </div>    
         </div>
 
-        <?php
-session_start();
-function validateCreditCard($number) {
-    $number = str_replace(' ', '', $number);
-    $sum = 0;
-    $flip = true;
+         <?php
+    session_start();
 
-    for ($i = strlen($number) - 1; $i >= 0; $i--) {
-        $digit = (int)$number[$i];
-        $digit = $flip ? $digit : $digit * 2;
-        $digit = $digit > 9 ? $digit - 9 : $digit;
-        $sum += $digit;
-        $flip = !$flip;
-    }
+    function validateCreditCard($number) {
+        $number = str_replace(' ', '', $number);
+        $sum = 0;
+        $flip = true;
 
-    return $sum % 10 === 0;
-}
-//Stle changes will be made here
-echo '<h2>Checkout</h2>';
-
-if (isset($_SESSION['cart']) && count($_SESSION['cart']) > 0) {
-    // Connect to the MySQL database
-    $conn = mysqli_connect("localhost", "root", "mysql", "client1");
-
-    // Check connection
-    if (!$conn) {
-        die("Connection failed: " . mysqli_connect_error());
-    }
-
-    echo '<div class="checkout-items">';
-
-    foreach ($_SESSION['cart'] as $product_id => $quantity) {
-        // Fetch product details based on $product_id
-        $sql = "SELECT * FROM products WHERE id = $product_id";
-        $result = mysqli_query($conn, $sql);
-
-        if ($result && mysqli_num_rows($result) > 0) {
-            $productDetails = mysqli_fetch_assoc($result);
-
-            echo '<div class="checkout-item">';
-            echo '<img src="' . $productDetails['image_url'] . '" alt="' . $productDetails['name'] . '" width="100" height="100">';
-            echo '<div class="product-details">';
-            echo '<h3>' . $productDetails['name'] . '</h3>';
-            echo '<p>Price: $' . $productDetails['price'] . '</p>';
-            echo '</div>';
-            echo '</div>';
+        for ($i = strlen($number) - 1; $i >= 0; $i--) {
+            $digit = (int)$number[$i];
+            $digit = $flip ? $digit : $digit * 2;
+            $digit = $digit > 9 ? $digit - 9 : $digit;
+            $sum += $digit;
+            $flip = !$flip;
         }
+
+        return $sum % 10 === 0;
     }
 
-    echo '</div>';
-    $totalPrice = 0;
+    echo '<h2>Checkout</h2>';
 
-    // Calculate total price
-    foreach ($_SESSION['cart'] as $product_id => $quantity) {
-        $sql = "SELECT price FROM products WHERE id = $product_id";
-        $result = mysqli_query($conn, $sql);
+    if (isset($_SESSION['cart']) && count($_SESSION['cart']) > 0) {
+        // Connect to the MySQL database
+        $conn = mysqli_connect("localhost", "root", "mysql", "client1");
 
-        if ($result && mysqli_num_rows($result) > 0) {
-            $productDetails = mysqli_fetch_assoc($result);
-            $totalPrice += $productDetails['price'] * $quantity;
+        // Check connection
+        if (!$conn) {
+            die("Connection failed: " . mysqli_connect_error());
         }
+
+        echo '<div class="checkout-items">';
+
+        foreach ($_SESSION['cart'] as $product_id => $quantity) {
+            // Fetch product details based on $product_id
+            $sql = "SELECT * FROM products WHERE id = $product_id";
+            $result = mysqli_query($conn, $sql);
+
+            if ($result && mysqli_num_rows($result) > 0) {
+                $productDetails = mysqli_fetch_assoc($result);
+
+                echo '<div class="checkout-item">';
+                echo '<img src="' . $productDetails['image_url'] . '" alt="' . $productDetails['name'] . '" width="100" height="100">';
+                echo '<div class="product-details">';
+                echo '<h3>' . $productDetails['name'] . '</h3>';
+                echo '<p>Price: $' . $productDetails['price'] . '</p>';
+                echo '</div>';
+                echo '</div>';
+            }
+        }
+
+        echo '</div>';
+        $totalPrice = 0;
+
+        // Calculate total price
+        foreach ($_SESSION['cart'] as $product_id => $quantity) {
+            $sql = "SELECT price FROM products WHERE id = $product_id";
+            $result = mysqli_query($conn, $sql);
+
+            if ($result && mysqli_num_rows($result) > 0) {
+                $productDetails = mysqli_fetch_assoc($result);
+                $totalPrice += $productDetails['price'] * $quantity;
+            }
+        }
+
+        // Shipping and tax
+        $shippingFee = 15; // Shipping fee
+        $taxRate = 0.075; // Tax rate
+
+        $shippingFeeAmount = $totalPrice > 0 ? $shippingFee : 0;
+        $taxAmount = $totalPrice * $taxRate;
+        $totalAmount = $totalPrice + $shippingFeeAmount + $taxAmount;
+
+        echo '<h3>Total Cost</h3>';
+        echo '<p>Subtotal: $' . $totalPrice . '</p>';
+        echo '<p>Shipping Fee: $' . $shippingFeeAmount . '</p>';
+        echo '<p>Tax: $' . $taxAmount . '</p>';
+        echo '<p>Total: $' . $totalAmount . '</p>';
+
+        // Close the MySQL connection
+        mysqli_close($conn);
+    } else {
+        echo 'Your cart is empty.';
     }
 
-    // Shipping and tax
-    $shippingFee = 15; // Shipping fee
-    $taxRate = 0.575; // Tax rate
+    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+        // Check which button was clicked
+        $action = isset($_POST['action']) ? $_POST['action'] : '';
 
-    $shippingFeeAmount = $totalPrice > 0 ? $shippingFee : 0;
-    $taxAmount = $totalPrice * $taxRate;
-    $totalAmount = $totalPrice + $shippingFeeAmount + $taxAmount;
+        if ($action === 'buy') {
+            // Process the buy button
+            // Validate credit card and perform additional processing
+            $creditCardNumber = $_POST['card-number'];
+            if (validateCreditCard($creditCardNumber)) {
+                // Credit card is valid, perform additional processing if needed
+                echo '<p>Thank you for your order! We will send your shipping details shortly.</p>';
+                // Clear the cart 
+                $_SESSION['cart'] = array();
+            } else {
+                echo '<p>Invalid credit card. Please check your card details and try again.</p>';
+            }
+        }
 
-    echo '<h3>Total Cost</h3>';
-    echo '<p>Subtotal: $' . $totalPrice . '</p>';
-    echo '<p>Shipping Fee: $' . $shippingFeeAmount . '</p>';
-    echo '<p>Tax: $' . $taxAmount . '</p>';
-    echo '<p>Total: $' . $totalAmount . '</p>';
-
-    // Close the MySQL connection
-    mysqli_close($conn);
-} else {
-    echo 'Your cart is empty.';
-}
-
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    // Check which button was clicked
-    $action = isset($_POST['action']) ? $_POST['action'] : '';
-
-    if ($action === 'buy') {
-        // Process the buy button
-        // Validate credit card and perform additional processing
-        $creditCardNumber = $_POST['card-number'];
-        if (validateCreditCard($creditCardNumber)) {
-            // Credit card is valid, perform additional processing if needed
-            echo '<p>Thank you for your order! We will send your shipping details shortly.</p>';
-            // Clear the cart 
+        if ($action === 'cancel') {
+            // Process the cancel button
+            // Clear the cart and redirect to the cart page
             $_SESSION['cart'] = array();
-        } else {
-            echo '<p>Invalid credit card. Please check your card details and try again.</p>';
+            header('Location: cart.php');
+            exit();
         }
     }
-
-    if ($action === 'cancel') {
-        // Process the cancel button
-        // Clear the cart and redirect to the cart page
-        $_SESSION['cart'] = array();
-        header('Location: cart.php');
-        exit();
-    }
-}
-?>
+    ?>
      
 
 <main>
