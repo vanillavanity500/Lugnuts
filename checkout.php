@@ -149,7 +149,7 @@ function validateCreditCard($number) {
 
     return $sum % 10 === 0;
 }
-// Include any necessary header, navigation, or styling here
+//Stle changes will be made here
 echo '<h2>Checkout</h2>';
 
 if (isset($_SESSION['cart']) && count($_SESSION['cart']) > 0) {
@@ -195,7 +195,7 @@ if (isset($_SESSION['cart']) && count($_SESSION['cart']) > 0) {
         }
     }
 
-    // Assuming shipping fee and tax are fixed amounts
+    // Shipping and tax
     $shippingFee = 15; // Shipping fee
     $taxRate = 0.575; // Tax rate
 
